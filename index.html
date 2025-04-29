@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madrasah Al-Manar - Modern dan Berkarakter</title>
+    <link rel="icon" href="logo.png">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #198754;
+            --secondary-color: #ffc107;
+            --dark-color: #212121;
+            --light-color: #f5f5f5;
+            --gray-800: #2d3748;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            padding: 15px 0;
+            transition: all 0.3s;
+            background-color: var(--primary-color) !important;
+        }
+
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 500;
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 500;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+            color: var(--primary-color);
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: var(--primary-color);
+            bottom: -10px;
+            left: 0;
+        }
+
+        .logo-img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(25, 135, 84, 0.1);
+            color: var(--primary-color);
+        }
+
+        .nav-item {
+            margin-right: 15px;
+        }
+
+        .nav-item:last-child {
+            margin-right: 0;
+            margin-left: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .nav-item {
+                margin-right: 0;
+                margin-bottom: 5px;
+            }
+
+            .nav-item:last-child {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: var(--gray-800);
+            color: white;
+            padding: 2rem 0;
+            width: 100%;
+        }
+
+        .footer h3 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .footer p,
+        .footer li {
+            color: #d1d5db;
+        }
+
+        .footer a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .footer .border-top {
+            border-color: #4a5568 !important;
+        }
+
+        .footer .fa-icon {
+            margin-right: 0.5rem;
+            width: 1rem;
+            text-align: center;
+        }
+
+        /* Tech Badge */
+        .tech-badge {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        /* Modern Card */
+        .modern-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .modern-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .modern-card .card-body {
+            padding: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+                <img src="logo.png" alt="Logo Madrasah Al-Manar" class="logo-img">
+                <span></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">Profil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#program">Program</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">Galeri</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#blog">Berita</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Kontak</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle me-1"></i> Login
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <h6 class="dropdown-header">Masuk Sebagai</h6>
+                            </li>
+                            <li><a class="dropdown-item" href="login.html"><i class="fas fa-user-graduate me-2"></i> Siswa</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-chalkboard-teacher me-2"></i> Guru</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user-plus me-2"></i> Daftar Akun</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <span class="tech-badge">
+                        <i class="fas fa-laptop-code me-2"></i> Madrasah Tidak Ketinggalan Zaman
+                    </span>
+                    <h1 class="hero-title">Madrasah Al-Manar <br>Modern dan Berkarakter</h1>
+                    <p class="hero-subtitle">Kami memadukan nilai-nilai keislaman dengan teknologi modern untuk menciptakan generasi yang unggul dan berakhlak mulia.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#program" class="btn btn-success btn-lg">Lihat Program <i class="fas fa-arrow-right ms-2"></i></a>
+                        <a href="#contact" class="btn btn-outline-success btn-lg">Hubungi Kami</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block">
+                    <img src="https://img.freepik.com/free-photo/happy-students-raising-hands-class_23-2147897641.jpg" alt="Siswa Madrasah Al-Manar" class="img-fluid rounded shadow modern-card">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="bg-light">
+        <div class="container">
+            <h2 class="section-title text-center">Profil Madrasah</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h3 class="mb-4">Visi & Misi</h3>
+                    <p class="mb-4">Visi kami adalah menjadi lembaga pendidikan islami yang modern, mencetak generasi berkarakter Qur'ani dan menguasai teknologi.</p>
+                    <ul class="list-unstyled">
+                        <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Pendidikan berbasis Al-Qur'an dan Sunnah</li>
+                        <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Kurikulum integratif agama dan sains</li>
+                        <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Pembelajaran berbasis teknologi digital</li>
+                        <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Lingkungan belajar yang islami dan modern</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <div class="modern-card">
+                        <img src="https://img.freepik.com/free-photo/group-diverse-students-studying-together_53876-94827.jpg" alt="Profil Madrasah" class="img-fluid w-100">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Program Section -->
+    <section id="program">
+        <div class="container">
+            <h2 class="section-title text-center">Program Unggulan</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="modern-card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="bg-success bg-opacity-10 p-3 rounded-circle d-inline-block mb-3">
+                                <i class="fas fa-quran text-success fs-3"></i>
+                            </div>
+                            <h5 class="card-title">Tahfizh Digital</h5>
+                            <p class="card-text">Program menghafal Al-Qur'an dengan dukungan aplikasi digital dan metode modern.</p>
+                            <a href="#" class="btn btn-sm btn-outline-success mt-3">Selengkapnya</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="modern-card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="bg-success bg-opacity-10 p-3 rounded-circle d-inline-block mb-3">
+                                <i class="fas fa-laptop-code text-success fs-3"></i>
+                            </div>
+                            <h5 class="card-title">IT & Robotika</h5>
+                            <p class="card-text">Pengembangan keterampilan teknologi informasi dan robotika berbasis nilai Islam.</p>
+                            <a href="#" class="btn btn-sm btn-outline-success mt-3">Selengkapnya</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="modern-card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="bg-success bg-opacity-10 p-3 rounded-circle d-inline-block mb-3">
+                                <i class="fas fa-globe-asia text-success fs-3"></i>
+                            </div>
+                            <h5 class="card-title">Bahasa Internasional</h5>
+                            <p class="card-text">Program penguasaan bahasa Arab, Inggris, dan Mandarin untuk komunikasi global.</p>
+                            <a href="#" class="btn btn-sm btn-outline-success mt-3">Selengkapnya</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="bg-light">
+        <div class="container">
+            <h2 class="section-title text-center">Galeri Kegiatan</h2>
+            <div class="row g-3">
+                <div class="col-md-4 col-6">
+                    <div class="modern-card">
+                        <img src="https://img.freepik.com/free-photo/group-happy-diverse-students-raising-arms_53876-94824.jpg" alt="Kegiatan Sekolah" class="img-fluid w-100">
+                    </div>
+                </div>
+                <div class="col-md-4 col-6">
+                    <div class="modern-card">
+                        <img src="https://img.freepik.com/free-photo/students-using-laptops_23-2147897643.jpg" alt="Kegiatan Sekolah" class="img-fluid w-100">
+                    </div>
+                </div>
+                <div class="col-md-4 col-6">
+                    <div class="modern-card">
+                        <img src="https://img.freepik.com/free-photo/group-diverse-students-studying-together_53876-94827.jpg" alt="Kegiatan Sekolah" class="img-fluid w-100">
+                    </div>
+                </div>
+                <div class="col-md-4 col-6">
+                    <div class="modern-card">
+                        <img src="https://img.freepik.com/free-photo/teacher-helping-student_23-2147897645.jpg" alt="Kegiatan Sekolah" class="img-fluid w-100">
+                    </div>
+                </div>
+                <div class="col-md-4 col-6">
+                    <div class="modern-card">
+                        <img src="https://img.freepik.com/free-photo/group-diverse-kids-with-laptop_23-2147844863.jpg" alt="Kegiatan Sekolah" class="img-fluid w-100">
+                    </div>
+                </div>
+                <div class="col-md-4 col-6">
+                    <div class="modern-card">
+                        <img src="https://img.freepik.com/free-photo/group-happy-diverse-students-raising-arms_53876-94824.jpg" alt="Kegiatan Sekolah" class="img-fluid w-100">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog">
+        <div class="container">
+            <h2 class="section-title text-center">Berita Terkini</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="modern-card h-100">
+                        <img src="https://img.freepik.com/free-photo/students-using-laptops_23-2147897643.jpg" class="card-img-top" alt="Berita Madrasah">
+                        <div class="card-body">
+                            <small class="text-muted">15 Juni 2023</small>
+                            <h5 class="card-title mt-2">Siswa Al-Manar Juara Kompetisi Robotik Nasional</h5>
+                            <p class="card-text">Prestasi membanggakan dari tim robotik madrasah dalam kompetisi tingkat nasional.</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <a href="#" class="text-success text-decoration-none">Baca Selengkapnya <i class="fas fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="modern-card h-100">
+                        <img src="https://img.freepik.com/free-photo/teacher-helping-student_23-2147897645.jpg" class="card-img-top" alt="Berita Madrasah">
+                        <div class="card-body">
+                            <small class="text-muted">10 Juni 2023</small>
+                            <h5 class="card-title mt-2">Peluncuran Aplikasi Tahfizh Digital</h5>
+                            <p class="card-text">Madrasah meluncurkan aplikasi inovatif untuk memudahkan hafalan Al-Qur'an.</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <a href="#" class="text-success text-decoration-none">Baca Selengkapnya <i class="fas fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="modern-card h-100">
+                        <img src="https://img.freepik.com/free-photo/group-diverse-kids-with-laptop_23-2147844863.jpg" class="card-img-top" alt="Berita Madrasah">
+                        <div class="card-body">
+                            <small class="text-muted">5 Juni 2023</small>
+                            <h5 class="card-title mt-2">Workshop Coding untuk Guru</h5>
+                            <p class="card-text">Peningkatan kompetensi guru dalam pembelajaran berbasis teknologi.</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <a href="#" class="text-success text-decoration-none">Baca Selengkapnya <i class="fas fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-light">
+        <div class="container">
+            <h2 class="section-title text-center">Hubungi Kami</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <form>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Nama Lengkap">
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="Alamat Email">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Subjek">
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" rows="5" placeholder="Pesan Anda"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">Kirim Pesan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container px-4">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <h3>Tentang Kami</h3>
+                    <p>Madrasah Al-Manar adalah lembaga pendidikan islam modern yang memadukan nilai-nilai keislaman dengan teknologi terkini.</p>
+                    <div class="mt-3">
+                        <span class="tech-badge">
+                            <i class="fas fa-laptop-code me-2"></i> Madrasah Digital
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h3>Kontak</h3>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="fas fa-map-marker-alt fa-icon"></i> Jl. Pendidikan Islam No. 123, Jakarta
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-phone-alt fa-icon"></i> (021) 12345678
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-envelope fa-icon"></i> info@almanar.sch.id
+                        </li>
+                        <li class="mb-3"><i class="fas fa-clock me-2"></i> Senin-Jumat: 07.00 - 16.00</li>
+                    </ul>
+                    <div class="social-media mt-4">
+                        <a href="#" class="text-decoration-none me-3"><i class="fab fa-facebook-f fs-5"></i></a>
+                        <a href="#" class="text-decoration-none me-3"><i class="fab fa-instagram fs-5"></i></a>
+                        <a href="#" class="text-decoration-none me-3"><i class="fab fa-youtube fs-5"></i></a>
+                        <a href="#" class="text-decoration-none"><i class="fab fa-whatsapp fs-5"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h3>Tautan Cepat</h3>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="#home" class="hover:text-white hover:underline transition duration-300">
+                                <i class="fas fa-home fa-icon"></i> Beranda
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#about" class="hover:text-white hover:underline transition duration-300">
+                                <i class="fas fa-info-circle fa-icon"></i> Profil
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#blog" class="hover:text-white hover:underline transition duration-300">
+                                <i class="fas fa-newspaper fa-icon"></i> Berita
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="hover:text-white hover:underline transition duration-300" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                <i class="fas fa-sign-in-alt fa-icon"></i> Login
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="hover:text-white hover:underline transition duration-300">
+                                <i class="fas fa-user-plus fa-icon"></i> Registrasi
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h3>Download App</h3>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="#home" class="hover:text-white hover:underline transition duration-300">
+                                <i class="fas fa-home fa-icon"></i> Beranda
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#about" class="hover:text-white hover:underline transition duration-300">
+                                <i class="fas fa-info-circle fa-icon"></i> Profil
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-top pt-4 mt-4 text-center text-gray-400">
+                <p>&copy; <script>
+                        document.write(new Date().getFullYear())
+                    </script> Madrasah Al-Manar. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
