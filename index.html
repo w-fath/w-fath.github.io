@@ -383,4 +383,173 @@
             "default": [
                 "Maaf, saya belum paham pertanyaan Anda. Coba tanyakan tentang: pelajaran, jadwal, ujian, atau ekstrakurikuler.",
                 "Pertanyaan menarik! Tapi saya hanya bisa membantu hal-hal terkait akademik di Madrasah Al-Manar.",
-                "Saya masih belajar. Coba gunakan kata kunci seperti: matematika, fisika, jadwal, atau
+                "Saya masih belajar. Coba gunakan kata kunci seperti: matematika, fisika, jadwal, atau ujian."
+            ]
+        };
+
+        // Helper functions
+        function getCurrentTime() {
+            const now = new Date();
+            return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function getRandomResponse(responses) {
+            if (Array.isArray(responses)) {
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+            return responses;
+        }
+
+        // Improved answer finding function
+        function findAnswer(question) {
+            question = question.toLowerCase().trim();
+            
+            // Check greetings
+            if (/(assalamu|halo|hai|selamat|pagi|siang|sore|malam)/i.test(question)) {
+                return getRandomResponse(knowledgeBase.salam);
+            }
+            
+            // Check specific subjects
+            const subjects = Object.keys(knowledgeBase.pelajaran);
+            for (const subject of subjects) {
+                if (question.includes(subject)) {
+                    return getRandomResponse(knowledgeBase.pelajaran[subject]);
+                }
+            }
+            
+            // Check schedule queries
+            if (/(jadwal|jam|pelajaran|kegiatan|sekolah)/i.test(question)) {
+                if (/(senin|selasa|rabu|kamis|jumat|sabtu|minggu)/i.test(question)) {
+                    const day = question.match(/(senin|selasa|rabu|kamis|jumat|sabtu|minggu)/i)[0];
+                    return knowledgeBase.jadwal.khusus[day.toLowerCase()];
+                }
+                return knowledgeBase.jadwal.umum;
+            }
+            
+            // Check exam queries
+            if (/(ujian|test|mid|semester|un|unbk)/i.test(question)) {
+                if (/(tips|saran|cara|strategi)/i.test(question)) {
+                    return getRandomResponse(knowledgeBase.ujian.tips);
+                }
+                if (/(mid|tengah)/i.test(question)) {
+                    return knowledgeBase.ujian.mid;
+                }
+                return knowledgeBase.ujian.semester;
+            }
+            
+            // Check extracurricular queries
+            if (/(ekstra|ekskul|kegiatan|robot|pramuka|futsal|kaligrafi|debat)/i.test(question)) {
+                return getRandomResponse(knowledgeBase.ekstrakurikuler);
+            }
+            
+            // Check facility queries
+            if (/(fasilitas|lab|perpustakaan|lapangan|aula|ruang|kelas)/i.test(question)) {
+                return getRandomResponse(knowledgeBase.fasilitas);
+            }
+            
+            // Check achievement queries
+            if (/(prestasi|juara|menang|lomba|olimpiade|kompetisi)/i.test(question)) {
+                return getRandomResponse(knowledgeBase.prestasi);
+            }
+            
+            // Check study tips
+            if (/(tips|saran|cara|belajar|efektif|strategi)/i.test(question)) {
+                return getRandomResponse(knowledgeBase["tips belajar"]);
+            }
+            
+            // Check scholarship
+            if (/(beasiswa|bantuan|dana|uang|biaya)/i.test(question)) {
+                return getRandomResponse(knowledgeBase.beasiswa);
+            }
+            
+            // Check registration
+            if (/(daftar|pendaftaran|registrasi|baru|siswa)/i.test(question)) {
+                return getRandomResponse(knowledgeBase.pendaftaran);
+            }
+            
+            // Default response
+            return getRandomResponse(knowledgeBase.default);
+        }
+
+        // DOM manipulation functions
+        function showTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            indicator.classList.add('active');
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            indicator.classList.remove('active');
+        }
+
+        function displayMessage(message, isUser) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageContainer = document.createElement('div');
+            messageContainer.classList.add('message-container');
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');
+            messageDiv.classList.add('new-message');
+            messageDiv.textContent = message;
+            
+            const timeDiv = document.createElement('div');
+            timeDiv.classList.add('timestamp');
+            timeDiv.textContent = getCurrentTime();
+            
+            messageContainer.appendChild(messageDiv);
+            if (isUser) {
+                messageContainer.appendChild(timeDiv);
+            }
+            
+            chatMessages.insertBefore(messageContainer, document.getElementById('typing-indicator'));
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function handleUserMessage() {
+            const userInput = document.getElementById('user-input');
+            const question = userInput.value.trim();
+            
+            if (question) {
+                displayMessage(question, true);
+                userInput.value = '';
+                
+                showTypingIndicator();
+                
+                // Simulate thinking delay
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    const answer = findAnswer(question);
+                    displayMessage(answer, false);
+                }, 1000 + Math.random() * 1500);
+            }
+        }
+
+        // Event listeners
+        document.getElementById('send-btn').addEventListener('click', handleUserMessage);
+        
+        document.getElementById('user-input').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                handleUserMessage();
+            }
+        });
+        
+        // Quick action buttons
+        document.querySelectorAll('.quick-action-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const question = this.getAttribute('data-question');
+                document.getElementById('user-input').value = question;
+                handleUserMessage();
+            });
+        });
+
+        // Initial greeting
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                displayMessage(getRandomResponse(knowledgeBase.salam) + 
+                " Saya bisa membantu dengan informasi tentang pelajaran, jadwal, ujian, dan kegiatan di Madrasah Al-Manar.", false);
+            }, 800);
+        });
+    </script>
+</body>
+</html>
